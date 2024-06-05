@@ -73,8 +73,11 @@ server.on('request', (req, res) => {
 server.on('request', (req, res) => {
     if (req.url === '/form' && req.method === 'POST') {
         let body = '';
-        req.on('data', chunk => {
-            body += chunk.toString();
+                req.on('data', chunk => {
+                    body += chunk.toString();
+                });
+                req.on('end', () => {
+                    let params = qs.parse(body);
+                });
+            }
         });
-        req.on('end', () => {
-            let params = qs
